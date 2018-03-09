@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180305070515) do
+ActiveRecord::Schema.define(version: 20180309135935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,7 +36,38 @@ ActiveRecord::Schema.define(version: 20180305070515) do
     t.index ["article_id"], name: "index_comments_on_article_id"
   end
 
+  create_table "customers", force: :cascade do |t|
+    t.string "name"
+    t.string "part_number"
+  end
+
+  create_table "customers_products", id: false, force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.bigint "product_id", null: false
+  end
+
+  create_table "people", force: :cascade do |t|
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.string "part_number"
+  end
+
   create_table "students", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "part_number"
+    t.index ["part_number"], name: "index_students_on_part_number"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "login"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
